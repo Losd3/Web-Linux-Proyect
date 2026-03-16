@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plataforma de Educación - Landing</title>
+  <style>
+    :root {
+      --bg: #061214;
+      --bg-soft: #0b1c1f;
+      --panel: rgba(10, 28, 31, 0.72);
+      --panel-strong: #0d2327;
+      --text: #e8fcfb;
+      --muted: #9bc7c4;
+      --primary: #18b6ae;
+      --primary-2: #0f8e88;
+      --border: rgba(120, 213, 208, 0.18);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --max: 1200px;
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(24, 182, 174, 0.14), transparent 28%),
+        linear-gradient(180deg, #061214 0%, #071618 30%, #08191c 100%);
+      color: var(--text);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(6, 18, 20, 0.72);
+      border-bottom: 1px solid rgba(120, 213, 208, 0.08);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), #56e0d9);
+      box-shadow: 0 12px 28px rgba(24, 182, 174, 0.25);
+      display: grid;
+      place-items: center;
+      color: #042325;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: 180ms ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #031719;
+      box-shadow: 0 14px 34px rgba(24, 182, 174, 0.22);
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(120, 213, 208, 0.32);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero {
+      padding: 72px 0 42px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 38px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: #b9f4f0;
+      background: rgba(24, 182, 174, 0.08);
+      font-size: 0.88rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      max-width: 12ch;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.7;
+      max-width: 62ch;
+      margin: 20px 0 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(13, 35, 39, 0.95), rgba(8, 24, 26, 0.95));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -30% auto auto -20%;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(24, 182, 174, 0.22), transparent 65%);
+      pointer-events: none;
+    }
+
+    .terminal {
+      background: #071517;
+      border: 1px solid rgba(120, 213, 208, 0.12);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(120, 213, 208, 0.08);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
+    }
+
+    .terminal-body {
+      padding: 18px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: #baf8f3;
+      font-size: 0.93rem;
+      line-height: 1.8;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(120, 213, 208, 0.1);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .mini-card h4 {
+      margin: 0 0 10px;
+      font-size: 0.98rem;
+    }
+
+    .progress {
+      height: 12px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress > span {
+      display: block;
+      width: 68%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #5ce3dc);
+    }
+
+    .section {
+      padding: 54px 0;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 26px;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 3vw, 3rem);
+      letter-spacing: -0.03em;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .logos {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .logo-box,
+    .feature-card,
+    .path-card,
+    .pricing-card,
+    .testimonial,
+    .faq-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .logo-box {
+      min-height: 76px;
+      display: grid;
+      place-items: center;
+      color: #b4e9e6;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+    }
+
+    .feature-grid,
+    .paths-grid,
+    .pricing-grid,
+    .testimonial-grid,
+    .faq-grid,
+    .stats-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .feature-card,
+    .path-card,
+    .pricing-card,
+    .testimonial,
+    .faq-item {
+      padding: 22px;
+    }
+
+    .feature-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      background: rgba(24, 182, 174, 0.12);
+      border: 1px solid rgba(120, 213, 208, 0.14);
+      color: #a7f4ef;
+      font-weight: 800;
+    }
+
+    .feature-card h3,
+    .path-card h3,
+    .pricing-card h3,
+    .testimonial h3,
+    .faq-item h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .feature-card p,
+    .path-card p,
+    .pricing-card p,
+    .testimonial p,
+    .faq-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .showcase-panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .showcase-panel h3 {
+      margin-top: 0;
+      font-size: 1.3rem;
+    }
+
+    .showcase-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .showcase-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(120, 213, 208, 0.09);
+      color: var(--muted);
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      padding: 22px;
+      border-radius: 22px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 8px;
+      color: #d4fffc;
+    }
+
+    .paths-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(24, 182, 174, 0.1);
+      border: 1px solid rgba(120, 213, 208, 0.12);
+      color: #b2f7f2;
+      font-size: 0.82rem;
+      margin-bottom: 14px;
+    }
+
+    .pricing-grid {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+    }
+
+    .pricing-card.featured {
+      outline: 1px solid rgba(24, 182, 174, 0.35);
+      transform: translateY(-4px);
+    }
+
+    .price {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin: 10px 0 14px;
+    }
+
+    .pricing-list {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0 24px;
+      color: var(--muted);
+    }
+
+    .testimonial-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .faq-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cta {
+      padding-bottom: 72px;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, rgba(24, 182, 174, 0.15), rgba(6, 18, 20, 0.7));
+      border: 1px solid rgba(120, 213, 208, 0.16);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .site-footer {
+      border-top: 1px solid rgba(120, 213, 208, 0.08);
+      padding: 28px 0 50px;
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap: 22px;
+    }
+
+    .footer-grid h4 {
+      margin: 0 0 12px;
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+
+    .footer-grid a {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .footer-grid a:hover { color: var(--text); }
+
+    .mobile-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .showcase,
+      .feature-grid,
+      .paths-grid,
+      .pricing-grid,
+      .testimonial-grid,
+      .stats-grid,
+      .footer-grid,
+      .logos,
+      .faq-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links,
+      .nav-actions .btn-secondary {
+        display: none;
+      }
+
+      .mobile-toggle { display: inline-grid; place-items: center; }
+
+      .nav.menu-open .nav-links {
+        display: grid;
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        top: 82px;
+        background: rgba(6, 18, 20, 0.98);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 18px;
+        gap: 14px;
+      }
+
+      .logos,
+      .feature-grid,
+      .paths-grid,
+      .pricing-grid,
+      .testimonial-grid,
+      .stats-grid,
+      .footer-grid,
+      .faq-grid,
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-box { padding: 24px; }
+      .hero { padding-top: 48px; }
+      h1 { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav" id="nav">
+      <a class="brand" href="#inicio">
+        <span class="brand-mark">D</span>
+        <span>David Linux Lab</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#rutas">Rutas</a>
+        <a href="#labs">Laboratorios</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#precios">Precios</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="#precios">Ver planes</a>
+        <a class="btn btn-primary" href="#cta">Empieza gratis</a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menú">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Plataforma práctica para Linux Essentials y LPIC-1</div>
+          <h1>Aprende Linux con práctica real y guía paso a paso.</h1>
+          <p>
+            Una landing inspirada en la claridad visual de GitHub, adaptada para una plataforma educativa moderna.
+            Aquí puedes mostrar cursos, laboratorios, rutas de certificación y un agente que acompañe al estudiante
+            mientras practica comandos, troubleshooting y conceptos clave.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#cta">Empieza gratis</a>
+            <a class="btn btn-secondary" href="#rutas">Ver ruta de estudio</a>
+          </div>
+
+          <div class="hero-meta">
+            <span>Laboratorios interactivos</span>
+            <span>Simulaciones de examen</span>
+            <span>Feedback en tiempo real</span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="terminal">
+            <div class="terminal-bar">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="terminal-body">
+              <div>$ ssh student@linux-lab</div>
+              <div>student@linux-lab:~$ ls -la /etc</div>
+              <div>student@linux-lab:~$ systemctl status sshd</div>
+              <div>> Buen trabajo. Revisa permisos y practica navegación.</div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="mini-card">
+              <h4>Progreso actual</h4>
+              <div>Linux Essentials · 68%</div>
+              <div class="progress"><span></span></div>
+            </div>
+            <div class="mini-card">
+              <h4>Siguiente laboratorio</h4>
+              <div>Usuarios, grupos y permisos</div>
+            </div>
+            <div class="mini-card">
+              <h4>Agente tutor</h4>
+              <div>Detecta errores y sugiere el siguiente paso.</div>
+            </div>
+            <div class="mini-card">
+              <h4>Ruta activa</h4>
+              <div>Linux Essentials → LPIC-1</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Diseñado para verse profesional y técnico desde el primer segundo</h2>
+          <p>
+            Esta estructura usa bloques claros, una navegación minimalista, tarjetas con mucho aire visual y una identidad
+            oscura con turquesa profundo como color principal para que se sienta moderna, confiable y orientada a tecnología.
+          </p>
+        </div>
+        <div class="logos">
+          <div class="logo-box">Linux</div>
+          <div class="logo-box">LPIC-1</div>
+          <div class="logo-box">Bash</div>
+          <div class="logo-box">Networking</div>
+          <div class="logo-box">Cloud</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="beneficios">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Qué hace diferente a tu plataforma</h2>
+          <p>
+            En vez de limitarse a video y teoría, tu sitio puede mostrar una propuesta enfocada en práctica guiada, certificaciones
+            y resolución de errores reales, que encaja perfecto con tu experiencia técnica.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon">01</div>
+            <h3>Laboratorios interactivos</h3>
+            <p>Ejercicios prácticos con escenarios reales para practicar Linux, comandos y administración básica.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">02</div>
+            <h3>Agente de apoyo</h3>
+            <p>Asistencia contextual para orientar al estudiante cuando se equivoca sin romper la experiencia de aprendizaje.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">03</div>
+            <h3>Rutas de certificación</h3>
+            <p>Roadmaps claros para Linux Essentials, LPIC-1 y otros temas relacionados a infraestructura y seguridad.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">04</div>
+            <h3>Seguimiento de progreso</h3>
+            <p>Visualización de módulos, dominio de temas, laboratorios completados y metas de estudio.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="labs">
+      <div class="container showcase">
+        <div class="showcase-panel">
+          <span class="tag">Vista de producto</span>
+          <h3>Un sitio de marketing que se conecta con una experiencia de aprendizaje real</h3>
+          <p style="color: var(--muted); line-height: 1.7;">
+            La parte pública vende la propuesta con claridad. La parte interna puede evolucionar luego a dashboard, cursos,
+            terminales, simulaciones y panel de progreso.
+          </p>
+          <div class="showcase-list">
+            <div class="showcase-item">Home con mensaje fuerte y llamadas a la acción claras.</div>
+            <div class="showcase-item">Catálogo de cursos y rutas por certificación.</div>
+            <div class="showcase-item">Acceso a labs, retos y simulaciones de examen.</div>
+            <div class="showcase-item">Área de usuario con avance, badges y sugerencias.</div>
+          </div>
+        </div>
+
+        <div class="showcase-panel">
+          <span class="tag">Métricas</span>
+          <h3>Bloques visuales listos para convencer y convertir</h3>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <strong>+40</strong>
+              <span style="color: var(--muted);">laboratorios listos</span>
+            </div>
+            <div class="stat-card">
+              <strong>3</strong>
+              <span style="color: var(--muted);">rutas iniciales</span>
+            </div>
+            <div class="stat-card">
+              <strong>24/7</strong>
+              <span style="color: var(--muted);">apoyo guiado</span>
+            </div>
+            <div class="stat-card">
+              <strong>100%</strong>
+              <span style="color: var(--muted);">enfocado en práctica</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rutas">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Rutas de aprendizaje que puedes ofrecer desde el día uno</h2>
+          <p>
+            Estas tarjetas están pensadas para que más adelante reemplaces el contenido demo por tus cursos reales,
+            precios, duración, nivel y objetivos de certificación.
+          </p>
+        </div>
+
+        <div class="paths-grid">
+          <article class="path-card">
+            <span class="tag">Ruta 1</span>
+            <h3>Linux Essentials</h3>
+            <p>Fundamentos, CLI, sistema de archivos, permisos, procesos y conceptos básicos de administración.</p>
+          </article>
+          <article class="path-card">
+            <span class="tag">Ruta 2</span>
+            <h3>LPIC-1</h3>
+            <p>Instalación, paquetes, kernel, dispositivos, scripting, redes, seguridad y troubleshooting.</p>
+          </article>
+          <article class="path-card">
+            <span class="tag">Ruta 3</span>
+            <h3>Linux + Cloud Basics</h3>
+            <p>Uso de Linux en entornos modernos, servicios, logs, automatización y bases para soporte cloud.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="precios">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Planes simples para lanzar rápido</h2>
+          <p>
+            El bloque de precios tiene el estilo de producto moderno tipo SaaS. Puedes dejarlo activo desde el inicio o usarlo
+            solo como placeholder mientras construyes la experiencia completa.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <span class="tag">Gratis</span>
+            <h3>Starter</h3>
+            <div class="price">$0</div>
+            <p>Ideal para captar leads y dejar que la gente pruebe tu forma de enseñar.</p>
+            <div class="pricing-list">
+              <span>Acceso a módulos introductorios</span>
+              <span>1 laboratorio de muestra</span>
+              <span>Newsletter y roadmap</span>
+            </div>
+            <a class="btn btn-secondary" href="#cta">Comenzar</a>
+          </article>
+
+          <article class="pricing-card featured">
+            <span class="tag">Recomendado</span>
+            <h3>Pro</h3>
+            <div class="price">$19</div>
+            <p>Para estudiantes que quieren avanzar con rutas, labs y preparación constante.</p>
+            <div class="pricing-list">
+              <span>Ruta completa Linux Essentials</span>
+              <span>Laboratorios guiados</span>
+              <span>Evaluaciones y progreso</span>
+            </div>
+            <a class="btn btn-primary" href="#cta">Elegir Pro</a>
+          </article>
+
+          <article class="pricing-card">
+            <span class="tag">Mentoría</span>
+            <h3>Premium</h3>
+            <div class="price">$49</div>
+            <p>Más enfoque personal para quienes buscan acelerar resultados y certificarse.</p>
+            <div class="pricing-list">
+              <span>Todo lo del plan Pro</span>
+              <span>Sesiones grupales o mentoría</span>
+              <span>Simulaciones más avanzadas</span>
+            </div>
+            <a class="btn btn-secondary" href="#cta">Solicitar acceso</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Prueba social para construir confianza</h2>
+          <p>
+            Incluso aunque todavía no tengas testimonios reales, esta sección te ayuda a reservar el espacio correcto dentro de la estructura.
+          </p>
+        </div>
+
+        <div class="testimonial-grid">
+          <article class="testimonial">
+            <h3>“Muy claro y práctico”</h3>
+            <p>La plataforma me ayudó a practicar comandos y entender mejor lo que normalmente solo veía en teoría.</p>
+          </article>
+          <article class="testimonial">
+            <h3>“Se siente como trabajo real”</h3>
+            <p>Los labs y la guía paso a paso me hicieron sentir que estaba resolviendo problemas reales de soporte.</p>
+          </article>
+          <article class="testimonial">
+            <h3>“Perfecta para certificaciones”</h3>
+            <p>La ruta organizada me dio una mejor idea de qué estudiar primero y cómo medir mi progreso.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Preguntas frecuentes</h2>
+          <p>Un cierre útil para resolver dudas antes del registro y aumentar la conversión.</p>
+        </div>
+
+        <div class="faq-grid">
+          <article class="faq-item">
+            <h3>¿Necesito experiencia previa?</h3>
+            <p>No. Puedes orientar la plataforma tanto a principiantes como a personas que ya trabajan en soporte y quieren formalizar conocimientos.</p>
+          </article>
+          <article class="faq-item">
+            <h3>¿Incluye laboratorios?</h3>
+            <p>Sí. La idea de esta landing es destacar la práctica como el centro de tu propuesta educativa.</p>
+          </article>
+          <article class="faq-item">
+            <h3>¿Se puede preparar para certificaciones?</h3>
+            <p>Sí. La estructura ya deja espacio para Linux Essentials, LPIC-1 y futuras rutas técnicas.</p>
+          </article>
+          <article class="faq-item">
+            <h3>¿Puedo probarlo en una VM antes?</h3>
+            <p>Sí. Este archivo se puede abrir de forma local o servir desde una VM en VirtualBox antes de subirlo a producción.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta" id="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2 style="margin:0 0 10px; font-size: clamp(1.8rem, 3vw, 2.6rem);">Lanza una marca educativa que se vea moderna desde el inicio</h2>
+            <p style="margin:0; color: var(--muted); line-height: 1.7; max-width: 60ch;">
+              Cambia textos, módulos, rutas y precios para adaptarlo a tu contenido. La base visual ya está lista para seguir creciendo.
+            </p>
+          </div>
+          <div style="display:flex; gap: 12px; flex-wrap: wrap;">
+            <a class="btn btn-primary" href="#inicio">Subir arriba</a>
+            <a class="btn btn-secondary" href="#rutas">Explorar rutas</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom: 12px;">
+          <span class="brand-mark">D</span>
+          <span>David Linux Lab</span>
+        </div>
+        <p style="margin:0; line-height:1.8; color: var(--muted);">
+          Plataforma orientada a Linux, práctica guiada y formación técnica moderna.
+        </p>
+      </div>
+      <div>
+        <h4>Producto</h4>
+        <a href="#rutas">Rutas</a>
+        <a href="#labs">Laboratorios</a>
+        <a href="#precios">Planes</a>
+      </div>
+      <div>
+        <h4>Recursos</h4>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#faq">FAQ</a>
+        <a href="#cta">Registro</a>
+      </div>
+      <div>
+        <h4>Marca</h4>
+        <a href="#inicio">Inicio</a>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const mobileToggle = document.getElementById('mobileToggle');
+
+    mobileToggle?.addEventListener('click', () => {
+      nav.classList.toggle('menu-open');
+    });
+  </script>
+</body>
+</html>
+
